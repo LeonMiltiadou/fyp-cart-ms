@@ -1,6 +1,6 @@
 # fyp-cart-ms
 
-Api Endpoints:
+##Api Endpoints:
 
 cartroutes.post('/addto', addtocart);
 
@@ -13,3 +13,8 @@ cartroutes.delete('/removefrom/:cartID/:lineItemId',removefromcart);
 cartroutes.delete('/empty/:cartID',emptycart);
 
 cartroutes.put('/updateqty',updatecartqty);
+
+
+##Todo
+
+-Testing for API requests with body which is not construcuted correctly.

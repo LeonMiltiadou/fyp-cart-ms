@@ -2,7 +2,7 @@ import axios from 'axios';
 require('dotenv').config()
 
 
-const url = "https://api.chec.io/v1/carts/";
+const url = process.env.COMMERCEBASEURL + "/carts/";
 
 const cartAPI = axios.create({
   baseURL: url,
@@ -27,11 +27,19 @@ module.exports = {
     return await cartAPI.post(cartID, { id: productId, quantity: quantity }).then((cart) => {
       return { data: cart.data, status: cart.status };
     }).catch((error) => {
+
+      const baseErrorMsg = "There was an error while adding the item to the cart";
+
       if (error.response) {
-        console.error('There was an error adding the item to the cart', error);
-        return { data: error.response.data, status: error.response.status };
+        console.error(baseErrorMsg, error);
+        return { error: baseErrorMsg, data: error.response.data, status: error.response.status };
+      } else if (error.request) {
+        console.error(baseErrorMsg + " - The request was made but no response was received", error);
+        return { error: baseErrorMsg + " - The request was made but no response was received", status: 502 };
       } else {
-        return { data: error.message, status: 500 };
+        console.error(baseErrorMsg + " - The Request was not made", error);
+        return { error: baseErrorMsg + " - The Request was not made", data: error.message, status: 500 };
+
       }
     });
   },
@@ -48,11 +56,18 @@ module.exports = {
       return { data: cart.data, status: cart.status };
     }).catch((error) => {
 
+      const baseErrorMsg = "There was an error while updating the item quantity in the cart";
+
       if (error.response) {
-        console.log('There was an error updating the cart items', error);
-        return { data: error.response.data, status: error.response.status };
+        console.error(baseErrorMsg, error);
+        return { error: baseErrorMsg, data: error.response.data, status: error.response.status };
+      } else if (error.request) {
+        console.error(baseErrorMsg + " - The request was made but no response was received", error);
+        return { error: baseErrorMsg + " - The request was made but no response was received", status: 502 };
       } else {
-        return { data: error.message, status: 500 };
+        console.error(baseErrorMsg + " - The Request was not made", error);
+        return { error: baseErrorMsg + " - The Request was not made", data: error.message, status: 500 };
+
       }
     });
   },
@@ -67,11 +82,19 @@ module.exports = {
     return await cartAPI.delete(cartID + "/items/" + lineItemId).then((cart) => {
       return { data: cart.data, status: cart.status };
     }).catch((error) => {
+
+      const baseErrorMsg = "There was an error while removing the item from the cart";
+
       if (error.response) {
-        console.error('There was an error removing the item from the cart', error);
-        return { data: error.response.data, status: error.response.status };
+        console.error(baseErrorMsg, error);
+        return { error: baseErrorMsg, data: error.response.data, status: error.response.status };
+      } else if (error.request) {
+        console.error(baseErrorMsg + " - The request was made but no response was received", error);
+        return { error: baseErrorMsg + " - The request was made but no response was received", status: 502 };
       } else {
-        return { data: error.message, status: 500 };
+        console.error(baseErrorMsg + " - The Request was not made", error);
+        return { error: baseErrorMsg + " - The Request was not made", data: error.message, status: 500 };
+
       }
     });
   },
@@ -84,11 +107,19 @@ module.exports = {
     return await cartAPI.delete(cartID + "/items").then((cart) => {
       return { data: cart.data, status: cart.status };
     }).catch((error) => {
+
+      const baseErrorMsg = "There was an error while emptying the cart";
+
       if (error.response) {
-        console.error('There was an error emptying the cart', error);
-        return { data: error.response.data, status: error.response.status };
+        console.error(baseErrorMsg, error);
+        return { error: baseErrorMsg, data: error.response.data, status: error.response.status };
+      } else if (error.request) {
+        console.error(baseErrorMsg + " - The request was made but no response was received", error);
+        return { error: baseErrorMsg + " - The request was made but no response was received", status: 502 };
       } else {
-        return { data: error.message, status: 500 };
+        console.error(baseErrorMsg + " - The Request was not made", error);
+        return { error: baseErrorMsg + " - The Request was not made", data: error.message, status: 500 };
+
       }
     });
   },
@@ -97,17 +128,25 @@ module.exports = {
   * Retrieve the current cart or create one if one does not exist
   * https://commercejs.com/docs/sdk/cart
   */
-  fetchCart: async (cartID) => {
+  handleFetchCart: async (cartID) => {
     return await cartAPI.get(cartID)
       .then(function (cart) {
         return { data: cart.data, status: cart.status };
       })
       .catch(function (error) {
+
+        const baseErrorMsg = "There was an error while fetching the cart";
+
         if (error.response) {
-          console.error('There was an error fetching the cart', error);
-          return { data: error.response.data, status: error.response.status };
+          console.error(baseErrorMsg, error);
+          return { error: baseErrorMsg, data: error.response.data, status: error.response.status };
+        } else if (error.request) {
+          console.error(baseErrorMsg + " - The request was made but no response was received", error);
+          return { error: baseErrorMsg + " - The request was made but no response was received", status: 502 };
         } else {
-          return { data: error.message, status: 500 };
+          console.error(baseErrorMsg + " - The Request was not made", error);
+          return { error: baseErrorMsg + " - The Request was not made", data: error.message, status: 500 };
+  
         }
       });
   },
@@ -116,17 +155,25 @@ module.exports = {
   * Creates a new cart
   * https://commercejs.com/docs/sdk/cart
   */
-  createCart: async () => {
+  handleCreateCart: async () => {
     return await cartAPI.get()
       .then(function (cart) {
         return { data: cart.data, status: cart.status };
       })
       .catch(function (error) {
+
+        const baseErrorMsg = "There was an error while creating the cart";
+
         if (error.response) {
-          console.error('There was an error creating a cart', error);
-          return { data: error.response.data, status: error.response.status };
+          console.error(baseErrorMsg, error);
+          return { error: baseErrorMsg, data: error.response.data, status: error.response.status };
+        } else if (error.request) {
+          console.error(baseErrorMsg + " - The request was made but no response was received", error);
+          return { error: baseErrorMsg + " - The request was made but no response was received", status: 502 };
         } else {
-          return { data: error.message, status: 500 };
+          console.error(baseErrorMsg + " - The Request was not made", error);
+          return { error: baseErrorMsg + " - The Request was not made", data: error.message, status: 500 };
+  
         }
       });
   }
