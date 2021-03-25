@@ -16,8 +16,7 @@ describe("cart functions", () => {
     const productId = 2;
     const quantity = 1;
 
-    let result = handleAddToCart(cartID, productId, quantity);
-    return result;
+    return handleAddToCart(cartID, productId, quantity);
 }
         test("SHOULD add to cart RETURNS cart data and status code as an object", async function () {
             const serverMockResponse = { data: "test=cart-data", status: 200 };
@@ -77,8 +76,7 @@ describe("cart functions", () => {
             const productId = 2;
             const quantity = 1;
         
-            let result = handleUpdateCartQty(cartID, productId, quantity);
-            return result;
+            return handleUpdateCartQty(cartID, productId, quantity);
         }
         test("SHOULD update quantity of item in cart RETURNS cart data and status code as an object", async function () {
             const serverMockResponse = { data: "test=cart-data", status: 200 };
@@ -202,8 +200,7 @@ describe("cart functions", () => {
                 function callHandleEmptyCart() {
                     const cartID = 3;
                     
-                    let result = handleEmptyCart(cartID);
-                    return result;
+                    return handleEmptyCart(cartID);
                 }
                 test("SHOULD empty the cart RETURNS cart data and status code as an object", async function () {
                     const serverMockResponse = { data: "test=cart-data", status: 200 };
@@ -262,8 +259,7 @@ describe("cart functions", () => {
                 function callhandleFetchCart() {
                     const cartID = 3;
                     
-                    let result = handleFetchCart(cartID);
-                    return result;
+                    return handleFetchCart(cartID);
                 }
                 test("SHOULD fetch the cart RETURNS cart data and status code as an object", async function () {
                     const serverMockResponse = { data: "test=cart-data", status: 200 };
