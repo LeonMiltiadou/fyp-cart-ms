@@ -7,7 +7,7 @@ const removeFromCart = async (req, res) => {
     //Checks to see that the required object keys exist, otherwise an error occured
     if (cart.error || cart.data || cart.status) {
 
-        //If there was an error adding to the cart
+        //If there was an error removing an item from the cart
         if (cart.error) {
 
             if (cart.data) {
@@ -16,7 +16,7 @@ const removeFromCart = async (req, res) => {
                 res.status(cart.status).json({ error: cart.error });
             }
         } else {
-            //Successfully added to cart
+            //Successfully removed an item from the cart
             res.status(cart.status).json(cart.data);
         }
 

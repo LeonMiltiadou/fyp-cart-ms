@@ -8,7 +8,7 @@ const updateCartQty = async (req, res) => {
     //Checks to see that the required object keys exist, otherwise an error occured
     if (cart.error || cart.data || cart.status) {
 
-        //If there was an error adding to the cart
+        //If there was an error updating the item quantity in the cart
         if (cart.error) {
 
             if (cart.data) {
@@ -17,7 +17,7 @@ const updateCartQty = async (req, res) => {
                 res.status(cart.status).json({ error: cart.error });
             }
         } else {
-            //Successfully added to cart
+            //Successfully updated the item quantity in the cart 
             res.status(cart.status).json(cart.data);
         }
 

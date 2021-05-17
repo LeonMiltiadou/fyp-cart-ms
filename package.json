@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon --exec npx babel-node ./src/routes/server.js",
+    "prestartprod":"npm run build",
     "startprod": "node ./lib/routes/server.js",
     "build": "babel src -d lib"
   },
@@ -24,8 +25,6 @@
     "@chec/commerce.js": "^2.3.2",
     "axios": "^0.21.1",
     "babel-jest": "^26.6.3",
-    "chai": "^4.3.4",
-    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
